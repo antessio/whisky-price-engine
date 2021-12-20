@@ -128,19 +128,21 @@ class BernabeiService implements WhiskyService{
         for (let i = 0; i < articles.length; i++) {
             const r_1 = articles[i];
             
-            
-            // const idProduct = $(r_1).attr('data-id-product') ?? '';
-            // const distillery = $($($(r_1).find('.prodotti__miniature__distilleria')[0])).text().trim().replace(/\n/g, " ");
-             const whiskyName = $($(r_1).find('div.item-img-info a')[0]).text().trim().replace(/\n/g, " ");
+            const distillery = "";
+            const pageLink = $($(r_1).find('div.item-img-info a')[0]);
+            const whiskyName = pageLink.text().trim().replace(/\n/g, " ");
+            const link = pageLink.attr('href')??'';
+            const idProduct = link.replace('https://www.bernabei.it','');
+            const price = parseFloat($($(r_1).find('.special-price .price')[0]).text().trim().replace('€','').replace(',','.'));
             // const price = parseFloat($($(r_1).find('.prodotti__miniature__prezzo__corrente')).text().trim().replace(/\n/g, " "));
-            console.log(whiskyName)
+            
             // const available = $($($(r_1).find('.prodotti__miniature__link__immagine--esaurito__sold-out'))).length>0
             // const link = $($(r_1).find('.prodotti__miniature__link')[0]).attr('href')??'';
             // //console.log(idProduct);
-            // if (idProduct) {
-            //     let w = new Whisky(idProduct, distillery, whiskyName, price,available,link)
-            //     searchResults.push(w);
-            // }
+            if (idProduct) {
+                let w = new Whisky(idProduct, distillery, whiskyName, price,true,link,'BERNABEI')
+                searchResults.push(w);
+            }
         }
         return searchResults
     }

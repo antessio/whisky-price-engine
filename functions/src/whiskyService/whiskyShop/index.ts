@@ -30,8 +30,11 @@ class WhiskyShopService implements WhiskyService{
             const distillery = $($($(r_1).find('.prodotti__miniature__distilleria')[0])).text().trim().replace(/\n/g, " ");
             const whiskyName = $($(r_1).find('.prodotti__miniature__nome__link')[0]).text().trim().replace(/\n/g, " ");
             const price = parseFloat($($(r_1).find('.prodotti__miniature__prezzo__corrente')).text().trim().replace(/\n/g, " "));
+            const available = $(r_1).find('.prodotti__miniature__link__immagine--esaurito__sold-out').length==0
+            const imageLink = $(r_1).find('.prodotti__miniature__link__immagine').attr('data-image')??""
+            const link = $(r_1).find('a.prodotti__miniature__nome__link').attr('href')??""
             if (idProduct) {
-                let w = new Whisky(idProduct, distillery, whiskyName, price,true,"","")
+                let w = new Whisky(idProduct, distillery, whiskyName, price,available,link, 'WHISKY_SHOP',imageLink)
                 searchResults.push(w);
             }
         }
@@ -42,5 +45,5 @@ class WhiskyShopService implements WhiskyService{
 }
 
 export{
-    WhiskyService
+    WhiskyShopService
 }

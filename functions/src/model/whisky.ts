@@ -1,4 +1,4 @@
-export class Whisky{
+class Whisky{
     productId: string
     distillery: string
     name: string
@@ -18,4 +18,23 @@ export class Whisky{
         this.shop = shop
         this.imageLink = imageLink
     }
+
+    
 }
+
+const whiskyConverter = {
+    toFirestore: (whisky: Whisky)=>{
+        return {
+            "productId": whisky.productId,
+            "distillery": whisky.distillery,
+            "name": whisky.name,
+            "price": whisky.price,
+            "available": whisky.available,
+            "link": whisky.link,
+            "shop": whisky.shop,
+            "imageLink": whisky.imageLink
+        }
+    }
+}
+
+export{Whisky,whiskyConverter }

@@ -28,7 +28,7 @@ class BernabeiService implements WhiskyService{
             const pageLink = $($(r_1).find('div.item-img-info a')[0]);
             const whiskyName = pageLink.text().trim().replace(/\n/g, " ");
             const link = pageLink.attr('href')??'';
-            const idProduct = link.replace('https://www.bernabei.it','');
+            const idProduct = link.replace('https://www.bernabei.it/','');
             const price = parseFloat($($(r_1).find('.special-price .price')[0]).text().trim().replace('€','').replace(',','.'));
             
             if (idProduct) {

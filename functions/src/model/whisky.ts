@@ -19,12 +19,23 @@ class Whisky{
         this.imageLink = imageLink
     }
 
+    getId():string{
+        return this.shop+"_"+this.productId
+    }
+    getKey():string{
+        if(this.distillery && this.distillery.length>0){
+            return this.distillery+" "+this.name;
+        }
+        return this.name;
+    }
     
 }
 
 const whiskyConverter = {
     toFirestore: (whisky: Whisky)=>{
         return {
+            "id": whisky.getId(),
+            "key": whisky.getKey(),
             "productId": whisky.productId,
             "distillery": whisky.distillery,
             "name": whisky.name,

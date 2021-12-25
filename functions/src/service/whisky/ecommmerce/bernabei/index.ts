@@ -1,16 +1,17 @@
 
  import * as cheerio from 'cheerio';
 import fetch from 'cross-fetch';
-import { WhiskyService } from '..';
-import { Whisky } from '../../model/whisky';
+import { WhiskyEcommerceSearchServiceInterface } from '..';
+
+import { EcommerceWhisky } from '../model/whisky';
 
 
 
 const searchBaseUrl = "https://www.bernabei.it/catalogsearch/result/?q="
 
-class BernabeiService implements WhiskyService{
+class BernabeiService implements WhiskyEcommerceSearchServiceInterface{
 
-    async search(searchCriteria: string): Promise<Whisky[]> {
+    async search(searchCriteria: string): Promise<EcommerceWhisky[]> {
    
         const r = await fetch(searchBaseUrl+searchCriteria);
         
@@ -32,7 +33,7 @@ class BernabeiService implements WhiskyService{
             const price = parseFloat($($(r_1).find('.special-price .price')[0]).text().trim().replace('€','').replace(',','.'));
             
             if (idProduct) {
-                let w = new Whisky(idProduct, distillery, whiskyName, price,true,link,'BERNABEI','')
+                let w = new EcommerceWhisky(idProduct, distillery, whiskyName, price,true,link,'BERNABEI','')
                 searchResults.push(w);
             }
         }

@@ -1,20 +1,16 @@
 
- import * as cheerio from 'cheerio';
-//import axios from 'axios'
+import * as cheerio from 'cheerio';
 import fetch from 'cross-fetch';
-import { WhiskyService } from '..';
-import { Whisky } from '../../model/whisky';
+import { WhiskyEcommerceSearchServiceInterface } from '..';
+import { EcommerceWhisky } from '../model/whisky';
 
 
 const searchBaseUrl = "https://whiskyshop.it/it/ricerca?controller=search&s="
 
-class WhiskyShopService implements WhiskyService{
+class WhiskyShopService implements WhiskyEcommerceSearchServiceInterface{
 
-    async search(searchCriteria: string): Promise<Whisky[]> {
+    async search(searchCriteria: string): Promise<EcommerceWhisky[]> {
         
-    
-        //const shop = request.query.shop
-        //const url = whiskyShopSearchBaseUrl
         const r = await fetch(searchBaseUrl+searchCriteria);
 
 
@@ -34,7 +30,7 @@ class WhiskyShopService implements WhiskyService{
             const imageLink = $(r_1).find('.prodotti__miniature__link__immagine').attr('data-image')??""
             const link = $(r_1).find('a.prodotti__miniature__nome__link').attr('href')??""
             if (idProduct) {
-                let w = new Whisky(idProduct, distillery, whiskyName, price,available,link, 'WHISKY_SHOP',imageLink)
+                let w = new EcommerceWhisky(idProduct, distillery, whiskyName, price,available,link, 'WHISKY_SHOP',imageLink)
                 searchResults.push(w);
             }
         }

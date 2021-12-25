@@ -1,4 +1,4 @@
-class Whisky{
+class EcommerceWhisky{
     productId: string
     distillery: string
     name: string
@@ -32,7 +32,7 @@ class Whisky{
 }
 
 const whiskyConverter = {
-    toFirestore: (whisky: Whisky)=>{
+    toFirestore: (whisky: EcommerceWhisky)=>{
         return {
             "id": whisky.getId(),
             "key": whisky.getKey(),
@@ -48,4 +48,4 @@ const whiskyConverter = {
     }
 }
 
-export{Whisky,whiskyConverter }
+export{EcommerceWhisky,whiskyConverter }
